@@ -1,0 +1,3 @@
+DemonCards.mod
+DemonCards.txt
+DemonCards.hak

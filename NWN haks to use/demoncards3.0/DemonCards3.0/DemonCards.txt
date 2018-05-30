@@ -1,0 +1,485 @@
+Demon Cards
+
+
+INTRODUCTION
+------------
+  This module is really a mini-game from the upcoming Demon module, sequel to Shadowlords and Dreamcatcher.  The game
+  itself was entertaining enough that I felt it would make a good "teaser" to the future release of the module.  At
+  around the same time, Jazael offered some scripting help and I pointed him to the game which had some assorted issues
+  before it could be finished.  He ended up rewriting all the code, fixing some problems, adding new cards, and changing
+  the rules around a bit.
+  
+  As it stands, the card game is inspired by all the collectable card games floating around these days, with a distinct
+  NWN flair.  You can purchase cards, play against the computer or a human opponent, and arrange your deck.
+
+  If you run into problems, you can contact me at adam@adamandjamie.com.
+
+CREDITS
+-------
+  Many thanks to Jazael who did the vast majority of the scripting.
+  The CODI team offered lots of good feedback and testing while in development.
+
+INSTALLATION
+------------
+  Put the .mod file in your /NeverwinterNights/nwn/modules/ directory.
+  Put the .hak file in your /NeverwinterNights/nwn/hak/ directory.
+  For multiplayer games, make sure that all players have at least the .hak file installed.  The server needs the .mod file.
+
+GETTING STARTED
+-------------
+  You'll find a rule book within the game that has most of the instructions you'll need.  To get started, talk to the
+  game store owner and buy a starter deck from him.  To see what cards you have, you can speak to nearly any character
+  in the area and choose to manage your deck.  After placing your deck of cards on the pedestal, you'll be able to move
+  cards in between your chosen deck and your pool of cards.
+  
+  Note that you can buy additional blank decks from the game store owner.  This allows you to set up multiple theme
+  decks and quickly switch between them.  If you do use multiple decks, make sure you also purchase a deck bag to put
+  your unused decks in.  If you don't, you may find yourself playing with a deck you didn't intend to.
+  
+  When arranging your deck, note that you can only have between 20 and 40 cards and still have it be considered a "legal"
+  deck.  Also, you cannot have more than four cards of any one type, other than magic generators.
+  
+  After you've arranged your deck, you can pick up your deck from the pedestal and click on the sign to leave the 
+  Manage Deck area.  The players in the Card Emporium have different skill levels and decks they play with.  I'd recommend
+  starting with the girl, who's a bit of a pushover.  Talk to her and choose what you'd like to bet for.  She'll either
+  play for fun, or for ante.
+  
+  When you first start up a game, you'll have a few seconds to get yourself oriented.  Notice that you are both invisible
+  and hasted, which should help you play cards quickly without the distraction of seeing your character.  As soon as 
+  your cards appear, you can click on them to play them.  A magic generator should go first, then any card with a cost
+  of one.
+  
+  Though the game is played in realtime, there are distinct turns.  Every turn, your magic generators will recharge,
+  a new card will be drawn, and certain constant effects will be reapplied (such as Flux, which deals damage to 
+  all creatures and players).  Also, you can only cast one magic generator per turn, so don't forget to play them.
+  
+  As the game progresses, you'll continue to summon creatures and cast spells.  If it's your first time playing, don't
+  forget to pause and examine any cards you're unfamiliar with.  Some have benefits and drawbacks that aren't
+  immediately apparent.  Also pay attention to the player messages that scroll by in yellow at the bottom of the screen.
+  
+  With luck, your creatures will beat their way through your opponent's defenses and attack the player's avatar.  Once
+  they fall, the game will end a short term later and you'll win whatever was bet on the game.
+  
+HINTS & TRICKS
+--------------
+  Don't forget to sacrifice your creatures when appropriate.  Many creatures have sacrifice effects that are 
+  quite powerful.
+
+  When creating your deck, don't forget to put in enough magic generators.  Somewhere between 1/4 to 1/3 of your
+  cards should be magic generators.
+  
+  When playing multiplayer, click the pillar when your opponent is next to it.  Up to 8 games can go at once,
+  multiplayer or singleplayer.  Up to eight people can manage decks at once as well.
+
+  You can lose the game by running out of cards.  While not typical, this can happen if your opponent has one
+  of the several cards that removes cards from your deck or if you start the game with a lower number of cards.
+  
+  There are a number of cards that work well together.  For example, the Plague Bearer card doesn't deal damage
+  to other rats, making it quite powerful when combined with others of its kind.
+  
+  Certain spells "power up".  If the card reads 1+, that means that additional magic generators can be used
+  to increase their effectiveness.  Sometimes it's best to hold on to that Fireball until you have enough
+  magic power to deal a mighty blow to your opponent.
+  
+  Try different strategies against different opponents.  There's more than one way to skin a pit fiend.
+
+TECHNICAL NOTES AND ISSUES
+--------------------------
+  If you export your character and try to play on another server, you'll find that your cards are gone even though
+  your deck is there.  This is due to variables being placed on the deck items, which don't survive the export
+  process.
+
+
+MODULE BUILDER NOTES
+--------------------
+If you're feeling brave, it's possible to integrate this game into your module or persistent world.
+Here are the general steps you'll need to take:
+ * Update your placeables.2da file.  You'll find a number of entries for the cards in the game.  The model names
+   all start with plc_card and the toolset names are all "Cards - " and then the name of the card.  If necessary,
+   copy the lines to wherever in your .2da file, then change the appearance for each of the cards.
+ * Update your appearance.2da file.  This is only needed to get the Fairy Dragon model in the game.  Feel free to
+   simply change the Fairy Dragon creature's appearance to something else and then you can ignore this step.
+ * Update your baseitems.2da file.  There's two new item types for the cards and decks.
+ * Import all the scripts in and build your module.
+ * If you need more areas for playing, just copy the areas.  The Manage Deck areas are no longer needed as of v2.1.
+ * With v2.2, you can easily place individual cards in creature's inventories, as rewards for quests, and so on.
+ * Make sure you create two factions - "CardGamePlayer1" and "CardGamePlayer2".  They have to be hostile to each other.
+   Go into the first CardGame area and make sure FactionObjectPlayer1 is set to the first faction and FactionObjectPlayer2
+   is set to the second.
+
+
+HISTORY
+-------
+3.0 (3/1/05)
+  Changed the version number to 3.0 to appease the marketing department.  :)
+
+2.8 (2/25/05)
+  Fixed Atlantian so that it only uses up to 5 magic generators.
+
+2.7 (2/21/05)
+  Increased cost of Maiden of Paradise to 2.
+  Toned down Pit Fiend.  Two magic generators are additionally destroyed when the creature is cast.
+  Added Power Stream, a global enchantment that causes all players to draw an extra card.
+  Set Mind Control to cost an additional point.
+  Boosted player's Spellcraft by 20 so they can read what spells the creatures are casting at each other.
+  Adjusted the stats of the Spirit Guardian and Steel Guardian.
+  
+2.6 (2/8/05)
+  Fixed the Spells container so that it didn't disappear after a single use (oops).
+  Rafaela now plays for ante when you ask to play for ante.
+  Fixed fireball script (bloodsong)
+  Expanded the number of songs that play
+  Added a check to make sure there isn't a Too Many Instructions error when visiting the store.
+  Added a check to see if your opponent was in another conversation when being challenged to a PvP game.
+
+2.5 (1/31/05)
+  Updated the store with the new decks that allow you to count the number of cards.
+  Changed the PVP conversation so that it should cancel the conversation after accepting.
+  Fixed ante so that you don't get a huge stack of cards - now you should only get one.
+
+2.4 (1/26/05)
+  Loremaster and Maiden of Paradise are immoble and won't attack.
+  Added the ability for players to specify wagers against other players.
+
+2.3  (1/25/05)
+  DMs aren't counted when displaying player scores.
+  Deck items have a unique power that reports a count of the cards inside.
+  Increased card prices for the high-end cards.  
+
+2.2  (1/23/05)
+  Updated the GetCardGameCreature function so that it finds creatures with 0 attack/defense.  Should fix a lot of issues
+    with cards like Resurrection, Holy Vengeance, etc.
+  Added an "Emergency Exit" pedestal.  If the game ends and the players are still around, they can exit that way.
+  Cleared Higher Calling effect on game end.
+  Fixed issue with ante (player not getting their anted card back).
+  Fixed problem with winning against NPCs and not getting the player score incremented.
+  Fixed problem with buying expansion packs when your card bag is full.
+  Updated text to better reflect where the cards went when you buy an expansion pack. 
+  Removed some debug code.
+  Fixed Mind Control - creature clears combat state after casting (thanks bloodsong)
+  Fixed Loremaster to only affect owner (bloodsong)
+  Vampire Masters drain avatar (bloodsong)
+  Fixed "above a minimum of" text message when you have too many cards in a deck.
+
+2.1  (1/20/05)
+  Fixed a number of small card-related bugs that found their way into Demon.
+  Switched to a system where cards are items and decks are containers.  No more disappearing cards when you log off!
+  NPC decks are generally fixed (sometimes they'd have really lousy random decks before).
+  Buying and selling cards is done via a shop window.  The card owner always has at least 100 cards.  If the number
+   drops below this, he'll fill up to 100.
+  Managing decks is done in your inventory, moving cards in and out of the deck containers.
+  Changing the rules by speaking to the game store owner can only happen if debug mode is on or the player is a DM.
+  To turn on debug mode, do the following:
+   Type ~
+   Type "DebugMode 1" (no quotes)
+   Type ~
+   Type "dm_setmodulevarint CARD_DEBUG 1"
+   Type ~
+   Type "DebugMode 0"
+  This allows greater access to cards as well as lots of informational text.  To disable debug mode, do the same
+  thing except change the CARD_DEBUG 1 to a 0.
+
+2.0  (2/24/04)
+  (added by Adam)
+  Fixed problem with selling cards when there were a small number.
+  Changed the freqency of ultra rares to make them virtually impossible to buy.
+  Added counterspell floating text.
+  Added sacrifice/game information pedestal to turn main game dialog on and off.
+  Changed sacrifice visual effect to new pedestal.
+  Fixed issue with rarity when purchasing cards.
+  Fixed issue with selling cards (could only sell one at a time).
+  Changed AI weights, hopefully fixing Dispel Magic, Flux, and Elixir of Life, among others.
+  Fixed Boomerang to not destroy all cards when used on a magic generator.
+
+
+  (added by Jazael)
+  Fixed issue with Saeshen upkeep where it was possible to bring back infinite Fairy Dragons and cause a game
+    wide crash
+  Fixed issue with Mind Control/Warp Reality and Boomerang, which caused the controlling player to receive
+    the creature's card, and not the original owner
+  Fixed Revenant so that it no longer goes to the discard pile if discarded from the player's hand
+  Fixed targetting error in the core code that prevented auto-targetting from selecting the correct object
+  Fixed error where ante was no longer working
+  Fixed issue where it was possible to still win the gold from an NPC when the game result was a draw
+  Fixed Wrath Of The Horde so that its effects no longer stack
+  Fixed issue with the *_LIFE_DEAD scan types where they would result in OBJECT_INVALID
+  Fixed Counterspell
+  Fixed multiple status afflicting cards so that later castings of status inflicting spells will ignore those
+    affected by the initial card
+  Fixed problem of upkeep heal effect messages returning a value of 0
+  Fixed aura effects so that they are now removed properly
+  Fixed Mind Control
+  Fixed problem with menus not cycling backwards more than one page
+  Fixed Dragon so that it targets more than one creature
+  Fixed bug where Mind Control and Warp Reality could remove auras
+  Fixed issue when discarding cards during upkeep draw so that now cards will shuffle along
+  Fixed targetting on Life Drain and Lightning Bolt
+  Fixed Counterspell feedback to give better indication of remaining counters
+  Fixed Life Drain maths to prevent targetting of avatars only
+  Fixed Mind Control so that it now has a casting cost of 0
+  Fixed Resurrect so that you get an invalid target message
+  Fixed bug in Kobold Chief where it would apply effects to all creatures except Kobolds
+  Fixed Mind Over Matter so that it does not return Mind Over Matter cards from the discard pile
+  Fixed bug with Deekin where it would not check for ownership of kobolds affected by the sacrifice effect
+  Fixed all issues where card effects could target dead creatures when they weren't supposed to
+  Fixed bug with card effects and AI so that it will ignore Kobold Mines
+  Fixed issue with sacrifices aimed at another creature by the sacrificed creature where it would trigger the
+    OnDeath effect of the target
+  Fixed problems due to EffectDeath, EffectDamage and DestroyObject mismatch in usage
+  Fixed problem where Magic Being Used message would report less than was casting cost of card
+  Fixed bug where multiple end prep functions were fired, causing double effects at end of game
+  Fixed Discard Pile
+  Fixed bug with Magic Generators multiplying in the Discard Pile
+  Fixed bug where Dragon would still consume undead creatures
+  Fixed bug where Dragon would take a bite out of itself
+  Fixed bug in Resurrect where player could gain multiple cards in their Discard Pile
+  Fixed bug in Revenant card where a TMI error was caused by multiple Revenants in the same discard pile
+  Fixed bug in Mythical cards where Resurrect could get more than one mythical card into play at a time
+  Fixed bug in Mythical cards where corpses were counted against the mythical limit
+  Fixed bug with Mythical cards where you could still get more than one in play at a time
+  Fixed bug in Warp Reality where it was only destroying one magic generator and not all of them
+  Fixed manage deck area so that it reports when no deck is in the pedestal when a player clicks on a card
+  Fixed <Player> plays <Card> messages to be printed before the results of the card are printed
+  Fixed Kobold Engineer so that he actually drops mines
+  Fixed Kobold Mine game crash
+  Fixed all instances where GetObjectInShape is used so that it checks for creatures and that they are not already
+    dead
+  Fixed info window so you can refresh its information without having to keep on clicking on the pedestal
+  Fixed bug where you could multiple use a card object to cast it several times
+  Fixed bug where cards would cause the drawing of a card other than from the main deck and disrupt the playing area
+  Fixed draw card functions so that cards that have been played and cause a draw card to occur will not be kept in
+    hand
+  Fixed bug with Dispel Magic removing aura effects
+  Fixed bug with the message report where 0 magic is being used
+  Fixed bug with creatures going to the discard pile
+  Fixed bug where aura effects could be applied to dead objects
+  Fixed bug where Kobold Pogosticks did not die after jumping
+  Fixed Boomerang so that when returning magic generators, it always returns one that has not been drained of power
+  Fixed bug with Boomerang where it destroyed caster magic generators instead of enemy
+  Fixed bug with Boomerang where it did not destroy the creature to be returned
+  Fixed bug where Solar Stones were free to cast
+  Fixed Simulacrum
+  Fixed TMI bug in Eye of the Beholder spell
+  Fixed 2xTMI bugs in Fairy Dragon sacrifice
+  Fixed bug in Fairy Dragon sacrifice code
+  Fixed Fairy Dragon to not play Magic Generators as the free card
+  Fixed all instances in the code where GetNearestCreature or GetNearestObjectByTag scans from the avatar object so
+    that it now scans from the concede board of that player
+  Fixed Deekin's data so that his sacrifice ability shows up
+  Fixed purchase individual cards menu when a blank value is displayed
+  Fixed the NPC decks so that any cards without a deck type set will be considered for any deck
+  Fixed Phasing plot flag
+  Fixed issue with several spell effects using DelayCommand
+  Fixed bug with Resurrect bringing back creatures that had a spawn effect and not reproducing the spawn effect
+  Fixed bug where cards discarded from the hand did not go to the discard pile
+  Fixed the card collection layout upon entering deck manage areas problem
+  Fixed the code where when a last card is drawn, instead of ending immediately, it kills the player's avatar, causing
+    the grace period to kick in, so if both players draw their last card, a draw occurs
+  Fixed bug where armour would not target creatures properly
+  Fixed bug in card spell effects when Dispel Magic is used
+  Fixed minor maths problem in dragon OnSpawn code
+  Fixed minor bug with music selection at end of the game
+  Removed sacrifice placeable
+  Removed Twister deck type
+  Removed code comments
+  Removed upper limit on card ID values
+  Added player results information window in game owner dialog
+  Added dynamic conversation window that presents game information and sacrifice list without the need to click on
+    placeables to trigger it
+  Added function wrapper to clarify destruction of card creatures
+  Added CARD_TYPE_STONE
+  Added a new card subtype entry in the card database
+  Added a Magic Generator option to the move cards into deck menu
+  Added nNoDiscard and nHandDiscard to the card data struct for discard rules of cards
+  Added nBoost to card data struct for + cost cards
+  Added nCombat (TRUE/FALSE) to data information struct to indicate whether a creature should engage in combat or not
+  Added code to combat scripts to prevent non-combat summons from engaging in combat
+  Added a visual effect to creatures that are sacrificed
+  Added NPC avatar appearance code
+  Added PvP trading system
+  Added debug mode
+  Added feedback to draw cards to show remaining card count
+  Added card destruction wand for deck manage areas
+  Added SignalEvent lines to certain spells
+  Added colour light shafts for avatar health
+  Added colour light shafts for magic pool count indicator
+  Added custom default game rules setting from the game owner
+  Added sDesc and sGame to the information struct for cards
+  Added card details and confirmation window to card purchase options
+  Added menu for moving cards into deck
+  Added new scan types
+  Added new creature scan types
+  Added miscellaneous feedback to various cards and their effects
+  Added some constants to control card game default values
+  Added discard pile
+  Added CARD_TYPE_MYTHICAL
+  Added Ultra Rare rarity type
+  Added d1_cards_jcustom script file for custom cards
+  Changed PvP gaming system
+  Changed the move cards into deck menu to widen possible filter types
+  Changed stone/generator tag/resref convention
+  Changed generator/stone constant naming convention
+  Changed rarity maths
+  Changed all instances where GetName is used to report the name of a creature/card
+  Changed Saeshen and Revenant upkeeps so that they are done at the same time
+  Changed upkeep for draining/healing avatar of hit points into generic form
+  Changed all menus to use highlighting for better readability of the lists
+  Changed GetIsDeckValid so that if the MODULE is passed as the target area for the rules, it will get the default rules
+    off the module instead of the specific area rules
+  Changed card purchase and sell windows
+  Changed dragon to target non-undead for its hit points gobble
+  Changed all Set type functions to delete the local variable when the value being set is the default for when no 
+    value exists
+  Changed some code for efficiency reasons
+  Swapped card line and generator line
+  Corrected miscellaneous card text
+  Placed a lot of the free-floating local variable statements into wrappers
+  Tidied some code
+  Rebuilt AI code
+  Restructured code
+1.9  (2/18/04)
+  Changed the Loremaster portrait.
+  Added a card creation guide to the .zip.
+  Cleaned up the appearances.2da file.
+  Bumped up the speed at which the AI script fires (in the middle of the turn rather than the end).
+  Added new cards - Sewer Rat, Beholder, Dragon, Angelic Light, Avenging Angel, Angelic Healer, Archangel,
+    Angelic Defender
+  Toned down White Stag to only heal a max of 5 hp per turn.
+  Fixed the always-winning bug.
+1.8  (2/13/04)
+  Changed shopkeeper code so that very rare cards are not for sale ever (it turns out there was a 
+    very small chance otherwise).
+  Changed Vampire Master and Pit Fiend's rarity to very rare, which should remove it from sale.
+  Increased Zombie Lord speed.
+  Changed some portraits (Solar Stone placeable and Archon card placeable).
+  Changed Maiden of Paradise back to a 1st level commoner (down from level 10).
+  Fixed a couple sound sets for the creatures (thanks Dave!)
+  Added power/toughness rating to creature names for easy reference (thanks Dave!)
+  Added music to the area as well as win/lose music for single player games.
+  Re-fixed the Fairy Dragon sacrifice code (it mysteriously broke).
+  Fixed Life Drain placeable cost (from 4 to 1+).
+  Added sound to summoning objects.
+  Fixed AI logic for Witch Doctor sacrifice.
+  Fiddled with portraits some more.
+  Fixed vampire's description to reflect their attack boost by killing an opponent.
+  Made NPCs plot to dissuade griefers.
+  Made Holy Vengeance target strongest creature as appropriate.
+  Armor is now cast on avatar only once.
+  Fixed Fairy Dragon's sacrifice (again!)
+  Removed Fairy Dragon's Charm Person ability.
+  Increased Zombie Lord's power and toughness.
+  Cleaned up the power/toughness levels in the code for improved AI.
+  Removed pain golem's sacrifice upkeep, toned down damage to 2 hp damage for every card over 4.
+  Added description Armour for armor spell to indicate ability to protect avatar.
+  Fixed Pain Golem placeable (it was missing a shield).
+  Fixed typo in Intellect Devourer's description.
+  Sacrifice message and vfx only appears if card actually played.
+  Fixed lots of other typos.
+  Gave cows rage, mostly for entertainment purposes.
+  Included Dave's card guide.
+  Adjusted assorted creature hit points a little.
+  Changed Vampire from very rare to rare.
+1.7  (2/11/04)
+  Removed Loremaster's Turn Undead ability (and generally toned him down quite a bit).
+  Fixed rules in this readme to say "more than four cards of any one type".
+  Really fixed the card placeable for rat (the hak didn't make it into the zip file).
+  Fixed cougar card description - changed toughness to 3 to match the placeable.
+  Changed "loose" to "lose" in boy's dialog.
+  Changed "affects" to "effects" in the rules book.
+  Increased strength of Chaos Witch, makinging it more interesting to play.
+  Changed Atlantian model to Elder Water Elemental
+  Changed Steel Guardian description to make it more accurate.
+  Added descriptions to each of the creatures (thanks for all the copy and paste work Dave!)
+  Changed Goblin Witchdoctor model to more closely fit the card.
+  Applied CutsceneGhost effect to avatar in hopes that it will prevent a problem with "bumping" the avatar away
+    which causes all sorts of problems and makes the game unplayable.  This has a drawback of causing creatures
+    to move freely through it, however, which can be another issue.
+  Changed Spirit Guardian placeable card to a toughness of 3 from 4.
+  Changed Atlantian to show 1+ power and toughness.
+  Changed creature color "glow" to red and blue.
+  Added Bone Golem description text to reflect their attack bonus to lower skeletons.
+  Added Wolf description text to reflect their attack bonus to other wolves.
+  Increased zombie speed.
+  Moved summon point a little closer to the center so large creatures don't spawn inside the avatar.
+  Fixed Maiden of Paradise, White Stag placeable portrait.
+  
+1.6  (2/10/04)
+  Fixed descriptions for bear and card placeable for rat
+  First pass at fixing the deck bag issue (involved renaming inappropriate tags)
+1.5  (2/6/04)
+  Added "Getting Started" section to readme file.
+  Added help sign to Manage Deck area.
+  Changed the word "limit" to "minimum" in the warning message if you have too few cards.
+1.4  (1/12/04)
+  Fixed multi deck support (gave each deck item a unique tag).
+  Added check for multiple decks outside of deck bag.
+1.3  (1/11/04)
+  Switched variables back to item, as they are saved as of the 1.61 NWN patch.
+  Added valid deck check when managing the deck (but only when removing the cards from the pedestal)
+1.2  (1/6/04)
+  Fixed problem with AI and Elixir of Life
+  Possible Too Many Instruction issue fixed.
+  Fixed problem destroying cards when managing your deck.
+  Fixed problem with placeables.2da in hak.
+1.1  (12/26/03)
+  Updated .2da files to work with HotU and the 1.61 patch
+1.0  (12/4/03)
+  Fixed issue with gold not being lost when conceding game.
+0.95 (11/29/03)
+  Fixed Flux - now deals damage.
+  The AI can no longer sacrifice creatures it doesn't own.
+  Added areas so that there are now 8 manage card and card game areas.
+  Removed Haste at end of game.
+  Fixed faction/color issues with Resurrection.
+  Added a message if someone doesn't have a deck to play with, yet they try to play.
+  Fixed issue with AI and Holy Vengeance (scanned enemy for creature, not self)
+  Removed skeleton properties from skeletons (so they can be paralyzed)
+  Modified AI for Healing Light so that they'll cast on self if wounded
+  Fixed Hook Horror and Goblin Witchdoctor sacrifice
+  Fixed Scorched earth - now destroys corpses
+  Removed Atlantian's special properties
+  Added support for multiple deck containers per player
+  Fixed removal of Haste when leaving manage area
+  Modified Resurrect & added DetermineCombatRound to avoid "dumb" resurrected creatures
+0.9 (11/25/03)
+  Fixed resurrection (allowed creatures to be raised)
+  Changed multiplayer layout
+  Fixed issue with card transfers (no longer duplicates cards)
+  Fixed issues with new creatures
+0.8 (11/24/03)
+  Changed all variables so that they're PC specific.  You can no longer trade decks between players, but save/load works.
+  Multiple game and deck management areas should be supported.
+  Flux now deals damage
+  New cards added, but need tweaking (Fairy Dragon, Scorched Earth, Resurrect, Chaos Witch, Vortex, Goblin Witchdoctor, Hook Horror)
+  If forced to discard, no longer gets rid of last card drawn.
+0.7 (11/20/03)
+  Changed Goblin Shaman's Negative Energy Ray to Burning Hands (to prevent opponent undead healing)
+  Updated Creature Rules book - fixed some grammar, added Sacrifice rule descriptions
+  Changed Solar Stone model so that it would appear
+  Changed dialog for one of the card players so that it was more clear when you were playing for cards or ante
+  Increased player's speed when managing deck
+  Changed movement increase to haste effect for managing and playing  
+  Added a dialog option so that the player can keep looking through the game owner's cards.
+  Added the concept of "rarity" when buying individual cards.  Chances of getting very rares are greatly reduced.
+  Changed zombies to remove immunity to paralysis
+  Toned down Vampire Master
+  Jazael made some changes as well to Solar Stone
+  Made playing field "longer" to try to avoid camera rotation issues.
+  Removed undead properties from Lich.
+  Added visual indicator of current avatar hit points every time damage is taken.
+  Changed avatar hit points back to 100.
+  Changed Lich's Negative Energy Ray to Ray of Enfeeblement.
+  Changed Loremaster upkeep to 2 magic generators.
+  Toned down Pit Fiend.
+  Toned down Fireball again (3 hp/generator)
+0.6 (11/19/03)
+  Cleared the manage area upon entering
+  Added check to make sure Loremasters are alive before applying affect
+  Added visual reminder & message when a sacrificeable creature is played
+  Changed the avatar's hit points to 150.
+0.5 (11/18/03)
+  Modified avatar paralyze effect so that it wouldn't be affected by Dispel Magic.
+  Changed "Concede Game" function so that the script is executed on the game area.
+  Removed skeleton knuckle from Skeleton Warrior
+  Resized the "Manage Deck" area
+  Changed text of Card Game rules
